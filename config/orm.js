@@ -24,7 +24,7 @@ const objToSql = object => {
     return arr.toString();
 }
 
-// orm object for all our SQL statement functions.
+// orm object for all our SQL statement functions
 // ===========================================================
 const orm = {
     all: function (tableInput, callback) {
@@ -39,40 +39,19 @@ const orm = {
             callback(result);
         });
     },
-    // An example of objColVals would be {name: panther, sleepy: true}
-    update: function (table, objColVals, condition, cb) {
-        var queryString = "UPDATE " + table;
-
-        queryString += " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE ";
-        queryString += condition;
-
-        console.log(queryString);
-        connection.query(queryString, function (err, result) {
-            if (err) {
-                throw err;
-            }
-
-            cb(result);
+    update: function (table, objColVals, condition, callback) {
+        connection.query(`UPDATE ${table} SET ${objToSql(objColVals)} WHERE ${condition};`, function (err, result) {
+            if (err) throw err;
+            callback(result);
         });
     },
-    delete: function (table, condition, cb) {
-        var queryString = "DELETE FROM " + table;
-        queryString += " WHERE ";
-        queryString += condition;
-
-        console.log(queryString);
-        connection.query(queryString, function (err, result) {
-            if (err) {
-                throw err;
-            }
-
-            cb(result);
+    delete: function (table, condition, callback) {
+        connection.query(`DELETE FROM ${table} WHERE ${condition};`, function (err, result) {
+            if (err) throw err;
+            callback(result);
         });
     }
 };
 
-
-// Export the orm object for the model (burgers_model.js).
+// Export the orm object for the model (burgers_model.js)
 module.exports = orm;
