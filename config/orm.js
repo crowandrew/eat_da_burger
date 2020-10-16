@@ -4,25 +4,29 @@ const connection = require("../config/connection.js");
 
 // Creating a string of questions marks based on a inputted number
 // ===========================================================
-const printQuestionMarks = num => {
+function printQuestionMarks(num) {
     const arr = [];
-    for (const i of num) arr.push("?");
+    for (let i = 0; i < num; i++) {
+      arr.push("?");
+    }
     return arr.toString();
-}
+  }
 
 // Convert an objects key/value pairs to SQL syntax
 // ===========================================================
-const objToSql = object => {
+function objToSql(ob) {
     const arr = [];
-    for (const key of object) {
-        let value = object[key];
-        if (Object.hasOwnProperty.call(object, key))
-            if (typeof value === "string" && value.indexOf(" ") >= 0)
-                value = "'" + value + "'";
+    for (let key in ob) {
+      let value = ob[key];
+      if (Object.hasOwnProperty.call(ob, key)) {
+        if (typeof value === "string" && value.indexOf(" ") >= 0) {
+          value = "'" + value + "'";
+        }
         arr.push(key + "=" + value);
+      }
     }
     return arr.toString();
-}
+  }
 
 // orm object for all our SQL statement functions
 // ===========================================================
@@ -34,7 +38,7 @@ const orm = {
         });
     },
     create: function (table, cols, values, callback) {
-        connection.query(`INSERT INTO ${table} (${cols.toString()}) VALUES (${printQuestionMarks(values.length)});`, vals, function (err, result) {
+        connection.query(`INSERT INTO ${table} (${cols.toString()}) VALUES (${printQuestionMarks(values.length)});`, values, function (err, result) {
             if (err) throw err;
             callback(result);
         });

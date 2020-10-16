@@ -5,30 +5,39 @@
 			<h1> Eat-Da-Burger! </h1>
 		</div>
 		<div class="col-sm-6 text-center" class="task">
-			<div class="row">
-			  {{#each burger}}
-			  	{{#unless this.devoured}}
-				<div class="col-sm-9 text-center">
-					<pre>{{this.id}}. {{this.burger_name}}
-					</pre>
-				  		<!-- {{this.Date}} -->
+			
+				{{#each burgers}}
+				{{#unless this.devoured}}
+				<div class="row">
+				<div class="col-sm-9 text-center card bg-light my-auto">
+					<p class="my-2">{{this.id}}. {{this.name}}
+					</p>
+					<!-- {{this.Date}} -->
 				</div>
 				<div class="col-sm-3 text-center">
 					<form class="button-size devour-form">
 						<input input type="hidden" class="burger_id" type="text" value={{this.id}}><br>
-						<button type="submit" class="btn btn-default">Devour it!</button>
+						<button type="submit" class="btn btn-light">Devour it!</button>
 					</form>
 				</div>
+				</div>
 				{{/unless}}
-			  {{/each}}
-			</div>
+				{{/each}}
+			
 		</div>
-		<div class="col-sm-6 text-center" class="task">
-			  {{#each burger}}
-			  	{{#if this.devoured}}
-			  		<input class="form-control" type="text" placeholder="{{this.id}} . {{this.burger_name}}" readonly>
-				{{/if}}
-			  {{/each}}
+		<div class="col-sm-6 text-center my-auto" class="task">
+			{{#each burgers}}
+			{{#if this.devoured}}
+			<form class="input-group mb-3 delete-form">
+				<input type="text" class="form-control burger_id" placeholder="{{this.id}} . {{this.name}}" data-val={{this.id}} readonly>
+				<div class="input-group-append">
+					<button class="btn btn-light" type="submit">Delete</button>
+				</div>
+			</form>
+
+			
+			{{/if}}
+			{{/each}}
 		</div>
 	</div>
 </div>
@@ -36,8 +45,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 text-center enter_section">
-			<form action="/burgers/create" method="POST">
-				<input type="text" class="form-control" name="burger_name" value="" id="enter_text">
+			<form action="/api/burgers" method="POST">
+				<input type="text" class="form-control" name="name" value="" id="enter_text">
 				<button type="submit" class="btn btn-primary" id="text-enter-button">Submit</button>
 			</form>
 			<p>Enter a burger you want to eat Click the "Submit" button.</p>
