@@ -2,7 +2,14 @@
 // ===========================================================
 const orm = require("../config/orm");
 
+const burger = {
+    all: function(callback) {
+        orm.all("burgers", function(res) {
+          callback(res);
+        });
+      },
 
+};
 
 
 
