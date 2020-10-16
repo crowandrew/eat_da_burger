@@ -8,8 +8,13 @@ const burger = {
           callback(res);
         });
       },
-      create: function(cols, vals, callback) {
-        orm.create("burgers", cols, vals, function(res) {
+      create: function(cols, values, callback) {
+        orm.create("burgers", cols, values, function(res) {
+          callback(res);
+        });
+      },
+      update: function(objColValues, condition, callback) {
+        orm.update("cats", objColValues, condition, function(res) {
           callback(res);
         });
       },

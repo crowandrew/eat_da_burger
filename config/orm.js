@@ -33,14 +33,14 @@ const orm = {
             callback(result);
         });
     },
-    create: function (table, cols, vals, callback) {
-        connection.query(`INSERT INTO ${table} (${cols.toString()}) VALUES (${printQuestionMarks(vals.length)});`, vals, function (err, result) {
+    create: function (table, cols, values, callback) {
+        connection.query(`INSERT INTO ${table} (${cols.toString()}) VALUES (${printQuestionMarks(values.length)});`, vals, function (err, result) {
             if (err) throw err;
             callback(result);
         });
     },
-    update: function (table, objColVals, condition, callback) {
-        connection.query(`UPDATE ${table} SET ${objToSql(objColVals)} WHERE ${condition};`, function (err, result) {
+    update: function (table, objColValues, condition, callback) {
+        connection.query(`UPDATE ${table} SET ${objToSql(objColValues)} WHERE ${condition};`, function (err, result) {
             if (err) throw err;
             callback(result);
         });
